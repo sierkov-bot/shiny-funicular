@@ -10,6 +10,10 @@ defmodule TilewarsWeb.Endpoint do
     signing_salt: "CRTuZ8MY"
   ]
 
+  socket "/ws", TilewarsWeb.GameSocket,
+    websocket: true,
+    longpoll: false
+
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
