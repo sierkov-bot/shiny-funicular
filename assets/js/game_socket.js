@@ -78,10 +78,10 @@ const container = document.getElementById("grid");
 
 function bindKeys() {
     document.addEventListener("keydown", function(event) {
-        if (event.key === "d") {
+        if (event.key === "w") {
             channel.push("move", {name: nameInput.value, direction: 0})
         }
-        if (event.key === "h") {
+        if (event.key === "d") {
             channel.push("move", {name: nameInput.value, direction: 1})
         }
         if (event.key === "s") {
@@ -90,7 +90,7 @@ function bindKeys() {
         if (event.key === "a") {
             channel.push("move", {name: nameInput.value, direction: 3})
         }
-        if (event.key === "t") {
+        if (event.key === "f") {
             channel.push("attack", nameInput.value)
         }
 
