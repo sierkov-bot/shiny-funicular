@@ -1,8 +1,6 @@
 defmodule Tilewars.PlayerRegistry do
   use GenServer
 
-  require Logger
-
   def start_link(opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
@@ -11,9 +9,6 @@ defmodule Tilewars.PlayerRegistry do
     st = %{}
 
     {:ok, st}
-  end
-
-  def all do
   end
 
   def handle_call(:all, _from, st) do

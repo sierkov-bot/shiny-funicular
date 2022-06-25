@@ -1,9 +1,7 @@
 defmodule Tilewars.GameServer do
   alias Tilewars.Game
 
-  require Logger
-
-  use GenServer, restart: :transient
+  use GenServer
 
   @worker_interval 250
 

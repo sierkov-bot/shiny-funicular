@@ -11,14 +11,8 @@ defmodule Tilewars.PlayerSup do
   end
 
   def start_child(name) do
-    # spec = %{
-    #   id: name,
-    #   start: {Tilewars.Player, :start_link, name},
-    #   restart: :permanent,
-    #   type: :worker
-    # }
-    {:ok, pid } = DynamicSupervisor.start_child(__MODULE__, {Tilewars.Player, name})
+    {:ok, pid } = DynamicSupervisor.start_child(Tilewars.PlayerSup, {Tilewars.Player, name})
     pid
   end
-  
+
 end

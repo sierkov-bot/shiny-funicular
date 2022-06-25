@@ -70,9 +70,7 @@ channel.join()
 
 channel.on("state", (response) => {
     // update grid
-    console.log("received state: " + JSON.stringify(response, null, 1))
     drawPlayers(response);
-    console.log(response["walls"])
     drawWalls(response["walls"]);
 })
 
@@ -117,12 +115,15 @@ function drawWalls(walls) {
         const wall = document.createElement("div")
         wall.className = 'wall'
         let position = ++w[0]+(w[1]*10)
-        console.log(position)
         let cell = document.querySelector(".grid-item:nth-child("+position+")")
         cell.appendChild(wall)
     })
 
 
+}
+
+function despawn() {
+    channel.push("terminate", nameInput.value)
 }
 
 function drawPlayers(players) {
@@ -149,6 +150,10 @@ function drawPlayers(players) {
 
 if (container) {
     makeRows(10, 10);
+    let quitbutton = document.getElementById("quitButton")
+    quitbutton.addEventListener("click", event => {
+        despawn()
+    })
 }
 
 export default socket

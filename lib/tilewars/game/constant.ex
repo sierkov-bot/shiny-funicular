@@ -7,6 +7,7 @@ defmodule Tilewars.Constant do
     left: 3,
   }
 
+  # Needs updating js if changed
   @grid %{
     width: 10,
     height: 10,

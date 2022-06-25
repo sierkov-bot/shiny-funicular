@@ -16,14 +16,9 @@ defmodule Tilewars.Application do
       TilewarsWeb.Endpoint,
       Tilewars.GameServer,
       {Tilewars.PlayerRegistry, name: PReg},
-      {Tilewars.PlayerSup, name: PlayerSup, strategy: :temporary}
-
-      # Start a worker by calling: Tilewars.Worker.start_link(arg)
-      # {Tilewars.Worker, arg}
+      {Tilewars.PlayerSup, name: PlayerSup}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Tilewars.Supervisor]
     Supervisor.start_link(children, opts)
   end

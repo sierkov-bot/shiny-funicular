@@ -1,9 +1,7 @@
 defmodule Tilewars.Player do
-  use GenServer
+  use GenServer, restart: :temporary
 
   alias Tilewars.Game
-
-  require Logger
 
   @respawn_time 5_000
 
@@ -13,24 +11,16 @@ defmodule Tilewars.Player do
 
   @impl true
   def init(player) do
+    # Get random position for spawn
     pos = Game.get_available_position()
 
     plr = %{name: player, position: pos, status: :alive, pid: self()}
     {:ok, plr}
   end
 
+  @impl true
   def handle_call(:info, _from, player) do
     {:reply, player, player}
-  end
-
-  @impl true
-  def handle_call(:position, _from, player) do
-    {:reply, player[:position], player}
-  end
-
-  @impl true
-  def handle_call(:status, _from, player) do
-    {:reply, player[:status], player}
   end
 
   @impl true
@@ -57,4 +47,5 @@ defmodule Tilewars.Player do
 
     {:noreply, reset}
   end
+
 end
