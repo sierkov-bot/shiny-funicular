@@ -1,32 +1,45 @@
 defmodule TilewarsWeb.GameChannel do
   use TilewarsWeb, :channel
 
+  require Logger
+
   @impl true
-  def join("game:lobby", payload, socket) do
-    if authorized?(payload) do
-      {:ok, socket}
-    else
-      {:error, %{reason: "unauthorized"}}
-    end
+  def join("game:lobby", _payload, socket) do
+    {:ok, socket}
   end
 
-  # Channels can be used in a request/response fashion
-  # by sending replies to requests from the client
   @impl true
-  def handle_in("ping", payload, socket) do
-    {:reply, {:ok, payload}, socket}
-  end
-
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (game:lobby).
-  @impl true
-  def handle_in("shout", payload, socket) do
-    broadcast(socket, "shout", payload)
+  def handle_in("spawn", playername, socket) do
+    # Tell the server we are ready to play
+    GenServer.cast(PReg, {:add, playername})
     {:noreply, socket}
   end
 
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
+  @impl true
+  def handle_in("move", %{"name" => name, "direction" => direction}, socket) do
+    player = GenServer.call(PReg, {:lookup, name})
+    new_pos = Tilewars.Game.get_destination_pos(player.position, direction)
+    if alive?(player), do: GenServer.call(player.pid, {:update_pos, new_pos})
+
+    # More responsiveness
+    Tilewars.Game.run()
+
+    {:reply, :ok, socket}
+  end
+
+  @impl true
+  def handle_in("attack", name, socket) do
+    player = GenServer.call(PReg, {:lookup, name})
+
+    if alive?(player), do: Tilewars.Game.make_attack(player)
+    {:reply, :ok, socket}
+  end
+
+  defp alive?(player) do
+    if player.status == :alive do
+      true
+    else
+      false
+    end
   end
 end

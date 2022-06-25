@@ -49,6 +49,8 @@ config :tilewars, TilewarsWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
+      ~r"lib/tilewars/game/.*(ex)$",
+      ~r"lib/tilewars/.*(ex)$",
       ~r"lib/tilewars_web/(live|views)/.*(ex)$",
       ~r"lib/tilewars_web/templates/.*(eex)$"
     ]

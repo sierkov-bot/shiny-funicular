@@ -1,0 +1,57 @@
+<section class="container">
+  <div style="display: none">
+    <!-- no time to deal with js -->
+    <%= text_input :nameInput, :name, value: @name %>
+    <button id="join" />
+  </div>
+  <style>
+    :root {
+        --grid-cols: 10;
+        --grid-rows: 10;
+    }
+
+    #grid {
+        display: grid;
+        grid-gap: 0;
+        grid-template-rows: repeat(var(--grid-rows), 1fr);
+        grid-template-columns: repeat(var(--grid-cols), 1fr);
+    }
+
+    .grid-item {
+        width: 7rem;
+        height: 7rem;
+        border: 1px solid #ddd;
+        text-align: center;
+        z-index: 1;
+        position: relative;
+    }
+
+    #grid .player, #grid .wall {
+        position: absolute;
+        display: block;
+        width: 7rem;
+        height: 7rem;
+        overflow-wrap: break-word;
+        padding: 5px;
+        font-size: 1rem;
+    }
+    #grid .wall {
+        background-color: black;
+    }
+    
+    #grid .alive {
+        border-color: green;
+        background-color: red;
+    }
+    #grid .dead {
+        border-color: white;
+        background-color: brown;
+    }
+    #grid .self {
+        background-color: green;
+        z-index: 5;
+    }
+  </style>
+  <div id="grid">
+  </div>
+</section>

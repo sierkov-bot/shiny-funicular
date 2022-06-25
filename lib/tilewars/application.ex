@@ -13,7 +13,11 @@ defmodule Tilewars.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Tilewars.PubSub},
       # Start the Endpoint (http/https)
-      TilewarsWeb.Endpoint
+      TilewarsWeb.Endpoint,
+      Tilewars.GameServer,
+      {Tilewars.PlayerRegistry, name: PReg},
+      {Tilewars.PlayerSup, name: PlayerSup, strategy: :temporary}
+
       # Start a worker by calling: Tilewars.Worker.start_link(arg)
       # {Tilewars.Worker, arg}
     ]
